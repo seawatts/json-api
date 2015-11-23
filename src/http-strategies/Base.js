@@ -147,7 +147,13 @@ export default class BaseStrategy {
 }
 
 function hasBody(req) {
-  return req.headers["transfer-encoding"] !== undefined || !isNaN(req.headers["content-length"]);
+	var contentLength = req.headers["content-length"];
+  var hasContentLength = false;
+  if (!isNaN(contentLength) && contentLength > 0) {
+    hasContentLength = true;
+  }
+
+  return req.headers["transfer-encoding"] !== undefined || hasContentLength;
 }
 
 function isReadableStream(req) {
