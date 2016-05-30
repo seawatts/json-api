@@ -83,15 +83,15 @@ var APIError = (function (_Error) {
     key: "fromError",
     value: function fromError(err) {
       var fallbackTitle = "An unknown error occurred while trying to process this request.";
-      var ErrorConstructor = this || APIError; // in case this isn't bound.
+      var ErrorConstructor = this || APIError; // in case this isn"t bound.
 
       if (err instanceof APIError) {
         return err;
       }
 
-      // If the error is marked as ready for JSON API display, it's secure
+      // If the error is marked as ready for JSON API display, it"s secure
       // to read values off it and show them to the user. (Note: most of
-      // the args below will probably be null/undefined, but that's fine.)
+      // the args below will probably be null/undefined, but that"s fine.)
       else if (err.isJSONAPIDisplayReady) {
           return new ErrorConstructor(err.status || err.statusCode || 500, err.code, err.title || fallbackTitle, err.details || (err.message ? err.message : undefined), err.links, err.paths);
         }

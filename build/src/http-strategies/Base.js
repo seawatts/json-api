@@ -37,11 +37,11 @@ var _typesHTTPRequest = require("../types/HTTP/Request");
 var _typesHTTPRequest2 = _interopRequireDefault(_typesHTTPRequest);
 
 /**
- * This controller is the base for http strategy classes. It's built around
+ * This controller is the base for http strategy classes. It"s built around
  * the premise that most if not all http frameworks are built on top of the
  * core http module and as such should provide the original IncomingMessage
  * object. This allows the buildRequestObject method to be framework agnostic
- * in it's translation to the json-api Request object.
+ * in it"s translation to the json-api Request object.
  *
  * @param {Object} options A set of configuration options.
  *
@@ -49,7 +49,7 @@ var _typesHTTPRequest2 = _interopRequireDefault(_typesHTTPRequest);
  *    http://jsonapi.org/recommendations/#patchless-clients
  *
  * @param {boolean} options.handleContentNegotiation If the JSON API library
- *    can't produce a representation for the response that the client can
+ *    can"t produce a representation for the response that the client can
  *    `Accept`, should it return 406 or should it hand the request back to
  *    to the framwork so that subsequent handlers can attempt to find an
  *    alternate representation? By default, it does the former.
@@ -136,16 +136,16 @@ var BaseStrategy = (function () {
             bodyParserOptions.length = req.headers["content-length"];
           }
 
-          // The req has not yet been read, so let's read it
+          // The req has not yet been read, so let"s read it
           (0, _rawBody2["default"])(req, bodyParserOptions, function (err, string) {
             if (err) {
               reject(err);
             }
 
             // Even though we passed the hasBody check, the body could still be
-            // empty, so we check the length. (We can't check this before doing
+            // empty, so we check the length. (We can"t check this before doing
             // getRawBody because, while Content-Length: 0 signals an empty body,
-            // there's no similar in-advance clue for detecting empty bodies when
+            // there"s no similar in-advance clue for detecting empty bodies when
             // Transfer-Encoding: chunked is being used.)
             else if (string.length === 0) {
                 it.hasBody = false;

@@ -4,6 +4,7 @@ export default class APIError extends Error {
   /*eslint-disable no-unused-vars */
   constructor(status, code, title, detail, links, paths) {
     super();
+    console.error("An error occurred: " + title + "\n" + detail);
 
     // Hack around lack of proxy support and default non-enumerability
     // of class accessor properties, while still giving us validation.
@@ -44,15 +45,15 @@ export default class APIError extends Error {
    */
   static fromError(err) {
     const fallbackTitle = "An unknown error occurred while trying to process this request.";
-    const ErrorConstructor = this || APIError; // in case this isn't bound.
+    const ErrorConstructor = this || APIError; // in case this isn"t bound.
 
     if(err instanceof APIError) {
       return err;
     }
 
-    // If the error is marked as ready for JSON API display, it's secure
+    // If the error is marked as ready for JSON API display, it"s secure
     // to read values off it and show them to the user. (Note: most of
-    // the args below will probably be null/undefined, but that's fine.)
+    // the args below will probably be null/undefined, but that"s fine.)
     else if(err.isJSONAPIDisplayReady) {
       return new ErrorConstructor(
         err.status || err.statusCode || 500,
@@ -66,6 +67,7 @@ export default class APIError extends Error {
 
     // Otherwise, we just show a generic error message.
     else {
+      console.error("An error occurred: " + err.name + " - " + err.message + "\n" + err.stack);
       return new ErrorConstructor(500, undefined, fallbackTitle);
     }
 
