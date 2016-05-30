@@ -639,7 +639,8 @@ var MongooseAdapter = (function () {
 
         var typeOptions = schemaType.options.type;
         var holdsArray = Array.isArray(typeOptions);
-        var baseType = holdsArray ? typeOptions[0].type.name : typeOptions.name;
+
+        var baseType = holdsArray ? typeOptions[0].ref : typeOptions.name;
         var refModelName = util.getReferencedModelName(model, path);
 
         return !refModelName ? new _typesDocumentationFieldType2["default"](baseType, holdsArray) : new _typesDocumentationRelationshipType2["default"](holdsArray, refModelName, _this7.getType(refModelName, pluralizer));
@@ -672,8 +673,8 @@ var MongooseAdapter = (function () {
           max: type.options.max || undefined
         };
 
-        type.validators.forEach(function (validator) {
-          _Object$assign(validationRules, validator.JSONAPIDocumentation);
+        type.validators.forEach(function (validatorObj) {
+          _Object$assign(validationRules, validatorObj.validator.JSONAPIDocumentation);
         });
 
         schemaFields.push(new _typesDocumentationField2["default"](name, fieldType, validationRules, _this7.toFriendlyName(name), defaultVal));
